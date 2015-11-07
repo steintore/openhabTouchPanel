@@ -1,6 +1,7 @@
+
 const Screen = React.createClass({
     handleSetItemState: function (itemLink, newItemState) {
-        console.log('handleSwitchItem: ' + itemLink + ' : ' +newItemState);
+        //console.log('handleSwitchItem: ' + itemLink + ' : ' +newItemState);
         $.ajax({
             url: itemLink,
             type: 'POST',
@@ -14,7 +15,7 @@ const Screen = React.createClass({
 
                     return it;
                 });
-                console.log('Ny state er: ', newState);
+                //console.log('Ny state er: ', newState);
 
                 this.setState({items: newState});
             }.bind(this),
@@ -52,7 +53,7 @@ const Screen = React.createClass({
             <div className="screen">
                 {this.state.items.map(t => {
                     return (
-                        <Tile key={t.widgetId} data={t} handleSetState={this.handleSetItemState} />
+                        <Tile key={t.widgetId} data={t} handleSetState={this.handleSetItemState}/>
                     )
                 })}
             </div>
@@ -63,20 +64,57 @@ const Screen = React.createClass({
 const Tile = React.createClass({
     render: function () {
         var itemComponent = null;
+        var itemLabel = this.props.data.label;
+        if (itemLabel.indexOf("[") > 0)
+            itemLabel = this.props.data.label.substr(0, this.props.data.label.indexOf("["))
         if (this.props.data.item.type === 'SwitchItem') {
             itemComponent = <SwitchItem data={this.props.data} handleSetState={this.props.handleSetState}/>
+        } else if (this.props.data.icon === 'temperature') {
+            itemComponent = <TempItem data={this.props.data}/>;
+        } else if (this.props.data.mapping != null) {
+            itemComponent = <SceneItem data={this.props.data}/>;
         }
         return (<div className="tile col-xs-4">
-            <Name text={this.props.data.label} value={this.props.data.item.state} icon={this.props.data.icon}/>
+            <Name text={itemLabel} value={this.props.data.item.state} icon={this.props.data.icon}/>
             {itemComponent}
         </div>);
     }
 });
 
+const TempItem = React.createClass({
+    render: function () {
+        return (<div className="tempType">{this.props.data.item.state} &deg;C
+        </div>)
+    }
+});
+
+const SceneItem = React.createClass({
+    findItemValue: function () {
+        var itemValue = null;
+        var itemState = this.props.data.item.state;
+        this.props.data.mapping.map(function (it) {
+            if (it.command === itemState)
+                itemValue = it.label;
+        });
+        return itemValue;
+    },
+    render: function () {
+        return (<div className="sceneType">{this.findItemValue()}</div>)
+    }
+});
+
+const Name = React.createClass({
+    render: function () {
+        return (
+            <div className="name">{this.props.text}
+            </div>);
+    }
+});
+
+
 const SwitchItem = React.createClass({
     handleClick: function () {
         var newState = this.props.data.item.state === 'ON' ? 'OFF' : 'ON';
-        console.log(newState);
         this.props.handleSetState(this.props.data.item.link, newState);
     },
     render: function () {
@@ -125,16 +163,25 @@ const SwitchItem = React.createClass({
     }
 });
 
-const Name = React.createClass({
-    render: function () {
-        return (
-            <div className="name">{this.props.text}
-            </div>);
-    }
-});
 
+var getUrlParameter = function getUrlParameter(sParam) {
+    var sPageURL = decodeURIComponent(window.location.search.substring(1)),
+        sURLVariables = sPageURL.split('&'),
+        sParameterName,
+        i;
+
+    for (i = 0; i < sURLVariables.length; i++) {
+        sParameterName = sURLVariables[i].split('=');
+
+        if (sParameterName[0] === sParam) {
+            return sParameterName[1] === undefined ? true : sParameterName[1];
+        }
+    }
+};
 
 ReactDOM.render(
-    <Screen url="/rest/sitemaps/panel?Accept=application/json" pollInterval={5000}/>,
+    <Screen
+        url={"/rest/sitemaps/" + (getUrlParameter('sitemap') ? getUrlParameter('sitemap') : 'panel') + "?Accept=application/json"}
+        pollInterval={5000}/>,
     document.getElementById('content')
 );
