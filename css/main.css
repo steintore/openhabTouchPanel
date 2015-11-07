@@ -1,0 +1,61 @@
+
+#content {
+    background: #23527c;
+    /*width: 1024px;*/
+    height: 500px;
+    min-height: 100%;
+    display: block;
+}
+
+.tile {
+    background-color: #1b6d85;
+    text-align: center;
+    border-color: #080808;
+    border-right: double;
+    border-bottom: double;
+    height: 250px;
+}
+
+.icon {
+    width: 100%;
+    height: 100%;
+}
+
+div.icon img {
+    width: 64px;
+    height: 64px;
+}
+
+img.light-on {
+    content: url("../../images/light-on.png");
+}
+
+img.light-off {
+    content: url("../../images/light-off.png");
+}
+
+img.temperature {
+    content: url(../../images/temperature.png);
+}
+
+img.energy {
+    content: url(../../images/energy.png);
+}
+
+img.garagedoor-open {
+    content: url("../../images/garagedoor-open.png");
+}
+
+img.garagedoor-closed {
+    content: url("../../images/garagedoor-closed.png");
+}
+
+div.name {
+    font-size: large;
+}
+
+div.switchType {
+    background-color: cadetblue;
+    width: 100%;
+    height: 80%;
+}
