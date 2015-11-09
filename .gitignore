@@ -5,3 +5,8 @@
 
 # Mac
 .DS_Store
+
+node_modules
+index.js
+.DS_Store
+*.log

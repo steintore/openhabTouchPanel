@@ -1,3 +1,4 @@
+import React from "react";
 
 const Screen = React.createClass({
     handleSetItemState: function (itemLink, newItemState) {
@@ -224,9 +225,3 @@ var getUrlParameter = function getUrlParameter(sParam) {
     }
 };
 
-ReactDOM.render(
-    <Screen
-        url={"/rest/sitemaps/" + (getUrlParameter('sitemap') ? getUrlParameter('sitemap') : 'panel') + "?Accept=application/json"}
-        pollInterval={5000}/>,
-    document.getElementById('content')
-);
