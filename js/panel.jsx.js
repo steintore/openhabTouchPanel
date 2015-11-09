@@ -1,7 +1,6 @@
 
 const Screen = React.createClass({
     handleSetItemState: function (itemLink, newItemState) {
-        //console.log('handleSwitchItem: ' + itemLink + ' : ' +newItemState);
         $.ajax({
             url: itemLink,
             type: 'POST',
@@ -15,8 +14,6 @@ const Screen = React.createClass({
 
                     return it;
                 });
-                //console.log('Ny state er: ', newState);
-
                 this.setState({items: newState});
             }.bind(this),
             error: function (xhr, status, err) {
@@ -27,12 +24,11 @@ const Screen = React.createClass({
     loadItemsFromServer: function () {
         $.ajax({
             url: this.props.url,
-            dataType: 'json',
             cache: false,
             type: 'GET',
             contentType: 'application/json',
             success: function (data) {
-                this.setState({items: data.homepage.widget.widget});
+                this.setState({items: data.homepage.widget});
             }.bind(this),
             error: function (xhr, status, err) {
                 console.error(this.props.url, status, err.toString());
@@ -53,7 +49,23 @@ const Screen = React.createClass({
             <div className="screen">
                 {this.state.items.map(t => {
                     return (
-                        <Tile key={t.widgetId} data={t} handleSetState={this.handleSetItemState}/>
+                        <Page key={t.widgetId} data={t.widget} handleSetItemState={this.handleSetItemState}/>
+                    )
+                })}
+            </div>
+        );
+    }
+});
+
+const Page = React.createClass({
+    render: function () {
+        var numberOfTiles = this.props.data.length;
+        var tileSize = numberOfTiles >= 12 ? 1 : (24 / numberOfTiles);
+        return (
+            <div className="page">
+                {this.props.data.map(t => {
+                    return (
+                        <Tile key={t.widgetId} tileSize={tileSize} data={t} handleSetState={this.handleSetItemState}/>
                     )
                 })}
             </div>
@@ -66,16 +78,19 @@ const Tile = React.createClass({
         var itemComponent = null;
         var itemLabel = this.props.data.label;
         if (itemLabel.indexOf("[") > 0)
-            itemLabel = this.props.data.label.substr(0, this.props.data.label.indexOf("["))
-        if (this.props.data.item.type === 'SwitchItem') {
-            itemComponent = <SwitchItem data={this.props.data} handleSetState={this.props.handleSetState}/>
+            itemLabel = this.props.data.label.substr(0, this.props.data.label.indexOf("["));
+        if (this.props.data.type === 'Image') {
+            itemComponent = <ImageItem data={this.props.data} label={itemLabel}/>;
+        } else if (this.props.data.item.type === 'SwitchItem' && this.props.data.icon.indexOf('light') != -1) {
+            itemComponent = <SwitchItemLight data={this.props.data} handleSetState={this.props.handleSetState} label={itemLabel}/>
+        } else if (this.props.data.item.type === 'SwitchItem') {
+            itemComponent = <SwitchItem data={this.props.data} handleSetState={this.props.handleSetState} label={itemLabel}/>
         } else if (this.props.data.icon === 'temperature') {
-            itemComponent = <TempItem data={this.props.data}/>;
+            itemComponent = <TempItem data={this.props.data}  label={itemLabel}/>;
         } else if (this.props.data.mapping != null) {
-            itemComponent = <SceneItem data={this.props.data}/>;
+            itemComponent = <SceneItem data={this.props.data} label={itemLabel}/>;
         }
-        return (<div className="tile col-xs-4">
-            <Name text={itemLabel} value={this.props.data.item.state} icon={this.props.data.icon}/>
+        return (<div className={"tile col-xs-" + this.props.tileSize}>
             {itemComponent}
         </div>);
     }
@@ -83,7 +98,9 @@ const Tile = React.createClass({
 
 const TempItem = React.createClass({
     render: function () {
-        return (<div className="tempType">{this.props.data.item.state} &deg;C
+        return (<div className="item">
+            <Name text={this.props.label} value={this.props.data.item.state} icon={this.props.data.icon}/>
+            <div className="tempType">{this.props.data.item.state} &deg;C</div>
         </div>)
     }
 });
@@ -99,7 +116,20 @@ const SceneItem = React.createClass({
         return itemValue;
     },
     render: function () {
-        return (<div className="sceneType">{this.findItemValue()}</div>)
+        return (<div className="item">
+            <Name text={this.props.label} value={this.props.data.item.state} icon={this.props.data.icon}/>
+            <div className="sceneType">{this.findItemValue()}</div>
+        </div>)
+    }
+});
+
+const ImageItem = React.createClass({
+    render: function () {
+        return (<div className="item">
+           <div className="imageType">
+            <img src={this.props.data.url}/>
+           </div>
+        </div>)
     }
 });
 
@@ -111,16 +141,31 @@ const Name = React.createClass({
     }
 });
 
-
 const SwitchItem = React.createClass({
     handleClick: function () {
         var newState = this.props.data.item.state === 'ON' ? 'OFF' : 'ON';
         this.props.handleSetState(this.props.data.item.link, newState);
     },
     render: function () {
-        return (<div className="switchType" onClick={this.handleClick}>
+        return (<div className="item" onClick={this.handleClick}>
+            <Name text={this.props.label} value={this.props.data.item.state} icon={this.props.data.icon}/>
+            <div className="switchType">
+                <i className={"fa fa-toggle-" + this.props.data.item.state.toLowerCase() + " fa-5x"}></i>
+            </div></div>)
+    }
+});
+
+const SwitchItemLight = React.createClass({
+    handleClick: function () {
+        var newState = this.props.data.item.state === 'ON' ? 'OFF' : 'ON';
+        this.props.handleSetState(this.props.data.item.link, newState);
+    },
+    render: function () {
+        return (<div className="item" onClick={this.handleClick}>
+            <Name text={this.props.label} value={this.props.data.item.state} icon={this.props.data.icon}/>
+            <div className="switchType">
             <svg version="1.1" id="Capa_1" x="0px" y="0px"
-                 width="94px" height="94px" viewBox="0 0 47 47" style={{enableBackground: 'new 0 0 47 47'}}>
+                 width="140px" height="140px" viewBox="0 0 47 47" style={{enableBackground: 'new 0 0 47 47'}}>
                 <g>
                     <g>
                         <path d="M23.5,11.449c-6.385,0-11.563,4.959-11.563,11.077c0,7.265,5.045,9.117,5.045,13.344c0,1.045,0.799,2.017,1.999,2.731
@@ -159,7 +204,7 @@ const SwitchItem = React.createClass({
                     </g>
                 </g>
             </svg>
-        </div>)
+        </div></div>)
     }
 });
 

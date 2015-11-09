@@ -1,16 +1,36 @@
+html,body {
+    height: 100%;
+    margin: 0px;
+    padding: 0px;
+}
+
+.swiper-container {
+    /*width: 100%;*/
+    /*height: 100%;*/
+}
+
+div.container-fluid {
+    margin-top: 10px;
+}
 
 #content {
-    background: #23527c;
     flex: 1 100%;
     height: 500px;
-    min-height: 100%;
     display: block;
+    font-size: xx-large;
 }
 
 .tile {
-    background-color: #1b6d85;
+    background-color: snow;
     text-align: center;
     height: 300px;
+}
+
+div.item {
+    background-color: slategray;
+    width: 100%;
+    height: 95%;
+    box-shadow: 10px 10px 5px #888888;
 }
 
 .icon {
@@ -19,37 +39,44 @@
 }
 
 div.tempType {
-    background-color: #2b542c;
-    width: 100%;
-    height: 80%;
-    display: flex; align-items: center; justify-content: center;
     font-size: x-large;
-}
-
-div.icon img {
-    width: 64px;
-    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 80%;
 }
 
 div.name {
-    font-size: large;
+    font-size: xx-large;
+    display:flex;
+    align-items: flex-start;
+    justify-content: flex-end;
+    margin-right: 10px;
 }
 
 div.switchType {
-    background-color: cadetblue;
-    width: 100%;
-    height: 80%;
     display: flex;
     align-items: center;
     justify-content: center;
-    cursor: hand;
+    height: 80%;
 }
 
 div.sceneType {
-    background-color: cadetblue;
-    width: 100%;
-    height: 80%;
+    font-size: xx-large;
     display: flex;
     align-items: center;
     justify-content: center;
+    height: 80%;
+
+}
+div.imageType {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+div.imageType img {
+
+    height: 80%;
+    width: 80%;
 }
