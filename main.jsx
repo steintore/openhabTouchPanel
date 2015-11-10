@@ -1,8 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
-//import Swiper from "react-swiper";
-
-//React.initializeTouchEvents(true);
+import ReactSwipe from "react-swipe";
 
 
 var getUrlParameter = function getUrlParameter(sParam) {
@@ -66,14 +64,25 @@ const Screen = React.createClass({
         this.loadItemsFromServer();
         setInterval(this.loadItemsFromServer, this.props.pollInterval);
     },
+    next: function() {
+        this.refs.ReactSwipe.swipe.next();
+    },
+    prev: function() {
+        this.refs.ReactSwipe.swipe.prev();
+    },
     render: function () {
         return (
             <div className="screen">
-                {this.state.items.map(t => {
-                    return (
-                        <Page key={t.widgetId} data={t.widget} handleSetItemState={this.handleSetItemState}/>
-                    )
-                })}
+                <ReactSwipe key={this.state.items.length} ref="ReactSwipe">
+                    {this.state.items.map(t => {
+                        return (
+                            <Page key={t.widgetId} data={t.widget} handleSetItemState={this.handleSetItemState}/>
+                    )})}
+                </ReactSwipe>
+                <div>
+                    <button onClick={this.prev}>Prev</button>
+                    <button onClick={this.next}>Next</button>
+                </div>
             </div>
         );
     }
