@@ -1,23 +1,7 @@
-html,body {
-    height: 100%;
-    margin: 0px;
-    padding: 0px;
-}
-
-.swiper-container {
-    /*width: 100%;*/
-    /*height: 100%;*/
-}
-
-div.container-fluid {
-    margin-top: 10px;
-}
-
 #content {
     flex: 1 100%;
     height: 500px;
     display: block;
-    font-size: xx-large;
 }
 
 .tile {
@@ -76,7 +60,6 @@ div.imageType {
 }
 
 div.imageType img {
-
     height: 80%;
     width: 80%;
 }

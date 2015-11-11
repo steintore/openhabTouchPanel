@@ -11,11 +11,20 @@ var getUrlParameter = function getUrlParameter(sParam) {
 
     for (i = 0; i < sURLVariables.length; i++) {
         sParameterName = sURLVariables[i].split('=');
-
         if (sParameterName[0] === sParam) {
             return sParameterName[1] === undefined ? true : sParameterName[1];
         }
     }
+};
+
+var getSitemapParameter = function getSitemapParameter() {
+    return (getUrlParameter('sitemap') ? getUrlParameter('sitemap') : 'panel')
+};
+
+var getVisibleScreensParameter = function getVisibleScreensParameter() {
+    var p = getUrlParameter("visibleScreens");
+    if (p && p.length > 0) return p;
+    return [];
 };
 
 const Screen = React.createClass({
@@ -73,16 +82,10 @@ const Screen = React.createClass({
     render: function () {
         return (
             <div className="screen">
-                <ReactSwipe key={this.state.items.length} ref="ReactSwipe">
                     {this.state.items.map(t => {
                         return (
                             <Page key={t.widgetId} data={t.widget} handleSetItemState={this.handleSetItemState}/>
                     )})}
-                </ReactSwipe>
-                <div>
-                    <button onClick={this.prev}>Prev</button>
-                    <button onClick={this.next}>Next</button>
-                </div>
             </div>
         );
     }
@@ -242,7 +245,8 @@ const SwitchItemLight = React.createClass({
 
 ReactDOM.render(
     <Screen
-        url={"/rest/sitemaps/" + (getUrlParameter('sitemap') ? getUrlParameter('sitemap') : 'panel') + "?Accept=application/json"}
-        pollInterval={5000}/>,
+        url={"/rest/sitemaps/" + getSitemapParameter() + "?Accept=application/json"}
+        pollInterval={5000}
+        visibleScreens={getVisibleScreensParameter()} />,
     document.getElementById('content')
 );
