@@ -57,7 +57,16 @@ const Screen = React.createClass({
             type: 'GET',
             contentType: 'application/json',
             success: function (data) {
-                this.setState({items: data.homepage.widget});
+                if (this.state.visibleScreens.length > 0) {
+                    var vs = JSON.parse(this.state.visibleScreens);
+                    var itemsToShow = [];
+                    vs.map( t => {
+                        itemsToShow.push(data.homepage.widget[t-1]);
+                    });
+                    this.setState({items: itemsToShow});
+                }
+                else
+                    this.setState({items: data.homepage.widget});
             }.bind(this),
             error: function (xhr, status, err) {
                 console.error(this.props.url, status, err.toString());
@@ -66,11 +75,12 @@ const Screen = React.createClass({
     },
     getInitialState: function () {
         return {
-            items: []
+            items: [], visibleScreens: []
         }
     },
     componentDidMount: function () {
         this.loadItemsFromServer();
+        this.setState({visibleScreens: this.props.visibleScreens});
         setInterval(this.loadItemsFromServer, this.props.pollInterval);
     },
     next: function() {
