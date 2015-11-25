@@ -43,6 +43,7 @@ div.switchType {
     align-items: center;
     justify-content: center;
     height: 80%;
+    cursor: pointer;
 }
 
 div.sceneType {
