@@ -1,5 +1,7 @@
 import React from 'react';
+import ReactDOM from "react-dom";
 import Page from './Page.jsx';
+var Hammer = require('react-hammerjs');
 
 const Screen = React.createClass({
     handleSetItemState: function (itemLink, newItemState) {
@@ -10,11 +12,15 @@ const Screen = React.createClass({
             data: newItemState,
             success: function (data) {
                 const newState = this.state.items.map(function (it) {
-                    it.widget.map(function (t) {
-                        if (t.type != 'Webview' && t.item.link === itemLink) {
-                            t.item.state = newItemState;
-                        }
-                    });
+                    if (it.widget.length > 1 ) {
+                        it.widget.map(function (t) {
+                            if (t.type != 'Webview' && t.item.link === itemLink) {
+                                t.item.state = newItemState;
+                            }
+                        });
+                    } else if (it.widget.type != 'Webview' && it.widget.item.link == itemLink) {
+                            it.widget.item.state = newItemState;
+                    }
                     return it;
                 });
                 this.setState({items: newState});
@@ -56,15 +62,22 @@ const Screen = React.createClass({
         this.loadItemsFromServer();
         this.setState({visibleScreens: this.props.visibleScreens});
         setInterval(this.loadItemsFromServer, this.props.pollInterval);
+
+    },
+    handleSwipe: function() {
+        var pSize = $('.page').width();
+        $('.screen').css("transform","translateX("+$(this).index() * pSize+"px)");
     },
     render: function () {
         return (
-            <div className="screen">
+            <Hammer onSwipe={this.handleSwipe} onTap={this.handleSwipe}>
+                <div id="screen" className="screen">
                 {this.state.items.map(t => {
                     return (
                         <Page key={t.widgetId} data={t.widget} handleSetItemState={this.handleSetItemState}/>
                     )})}
-            </div>
+                </div>
+            </Hammer>
         );
     }
 });
