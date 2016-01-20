@@ -3,7 +3,7 @@ import Tile from './Tile.jsx';
 
 const Page = React.createClass({
     render: function () {
-        var numberOfTiles = this.props.data.length;
+        var numberOfTiles = this.props.data.length ? this.props.data.length : 1;
         var tileSize = numberOfTiles >= 12 ? 1 : (24 / numberOfTiles);
         var tiles = [];
         if(numberOfTiles > 1) { this.props.data.map(t => {
@@ -14,9 +14,7 @@ const Page = React.createClass({
             tiles.push(<Tile key={this.props.data.widgetId} tileSize={tileSize} data={this.props.data} handleSetState={this.props.handleSetItemState}/>)
 
         return (
-            <div className="page">
-                {tiles}
-            </div>
+            React.DOM.div({style: {left: (100 * this.props.idx).toString() + "%"}, className: 'page'}, tiles)
         );
     }
 });

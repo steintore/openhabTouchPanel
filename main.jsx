@@ -26,10 +26,27 @@ var getVisibleScreensParameter = function getVisibleScreensParameter() {
     return [];
 };
 
+var x = 1;
+
+var animationFrameId;
+
+function setX(newX) {
+    clearAnimationFrame(animationFrameId);
+    animationFrameId = requestAnimationFrame(function () {
+        x = newX;
+        doRender();
+    })
+}
+
+
+
 ReactDOM.render(
     <Screen
         url={"/rest/sitemaps/" + getSitemapParameter() + "?Accept=application/json"}
         pollInterval={5000}
-        visibleScreens={getVisibleScreensParameter()} />,
+        visibleScreens={getVisibleScreensParameter()}
+        setX={setX}
+        x={x}
+    />,
     document.getElementById('content')
 );

@@ -26,7 +26,8 @@ const Tile = React.createClass({
         } else if (this.props.data.mapping != null) {
             itemComponent = <SceneItem data={this.props.data} label={itemLabel}/>;
         }
-        return (<div className={"tile col-xs-" + this.props.tileSize}>
+        var tileClass = this.props.tileSize == 1 || this.props.tileSize == 24 ? "tileFullScreen" : "tile col-xs-" + this.props.tileSize;
+        return (<div className={tileClass}>
             {itemComponent}
         </div>);
     }
