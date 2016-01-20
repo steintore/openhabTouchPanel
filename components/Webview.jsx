@@ -15,7 +15,10 @@ const Webview = React.createClass({
         this.iframe = iframe;
     },
     onIframeLoad: function () {
-        setTimeout(this.render(), 5000);
+        setTimeout(this.reload, 60000);
+    },
+    reload: function () {
+        this.iframe.src = this.props.data.url;
     },
     render: function () {
         return React.DOM.div({ref: "iframeTarget", style: {height: '100%'}});
