@@ -2,26 +2,23 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 const Webview = React.createClass({
-    render: function() {
-        return <iframe src={this.props.data.url} />
+    componentDidMount: function () {
+        var iframe = document.createElement("iframe");
+        iframe.src = this.props.data.url;
+        iframe.width = '100%';
+        iframe.height = '100%';
+        iframe.style.border = "0px";
+        iframe.scrolling = "no";
+        iframe.addEventListener("load", this.onIframeLoad);
+
+        this.refs["iframeTarget"].appendChild(iframe);
+        this.iframe = iframe;
     },
-    componentDidMount: function() {
-        this.renderFrameContents();
+    onIframeLoad: function () {
+        setTimeout(this.render(), 5000);
     },
-    componentDidUpdate: function() {
-      this.renderFrameContents();
-    },
-    componentWillUnmount: function() {
-        React.unmountComponentAtNode(this.getDOMNode().contentDocument.body);
-    },
-    renderFrameContents: function() {
-        var doc = ReactDOM.findDOMNode(this);
-        if (doc.readyState == 'complete') {
-            console.log('render');
-            ReactDOM.render(<iframe src={this.props.data.url} />, doc.body);
-        } else {
-            setTimeout(this.renderFrameContents, 10);
-        }
+    render: function () {
+        return React.DOM.div({ref: "iframeTarget", style: {height: '100%'}});
     }
 });
 

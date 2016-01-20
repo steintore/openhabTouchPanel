@@ -9,11 +9,6 @@
     left:0;
 }
 
-div.screen {
-
-
-}
-
 div.page {
     width: 100%;
     height: 100%;
@@ -92,10 +87,4 @@ div.imageType img {
 div.iFrame {
     height: 100%;
     width: 100%;
-}
-
-iframe {
-    height:95%;
-    width: 95%;
-    border: 0px;
 }
