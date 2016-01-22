@@ -1,3 +1,11 @@
+body {
+    font-family: 'HelveticaNeue-UltraLight', 'Helvetica Neue UltraLight', 'Helvetica Neue', 'Open-Light', sans-serif;
+}
+
+html {
+    color: #fff;
+}
+
 #content {
     width: 100%;
     height: 100%;
@@ -10,7 +18,7 @@
 }
 
 div.page {
-    width: 100%;
+    width: 99%;
     height: 100%;
     padding: 0;
     margin: 0;
@@ -20,18 +28,45 @@ div.page {
 .tile {
     background-color: snow;
     text-align: center;
-    height: 50%;
+    margin-left: 15px;
 }
 
 .tileFullScreen {
-    /*background-color: snow;*/
-    /*text-align: center;*/
     height: 100%;
+}
+
+div.fullHeight {
+    height: 100%;
+    float: left;
+}
+
+div.halfHeight {
+    height: 50%;
+}
+
+div.oneThirdWidth {
+    width: 31%;
+}
+
+div.twoThirdWidth {
+    width: 66%;
+}
+
+div.floatRight {
+    float: right;
+}
+
+div.floatLeft {
+    float: left;
+}
+
+div.halfWidth {
+    width: 47%;
 }
 
 div.item {
     background-color: slategray;
-    width: 100%;
+    width: 95%;
     height: 95%;
     box-shadow: 10px 10px 5px #888888;
 }
@@ -50,7 +85,7 @@ div.tempType {
 }
 
 div.name {
-    font-size: xx-large;
+    font-size: 2em;
     display:flex;
     align-items: flex-start;
     justify-content: flex-end;
@@ -77,11 +112,13 @@ div.imageType {
     display: flex;
     align-items: center;
     justify-content: center;
+    height: 100%;
 }
 
 div.imageType img {
-    height: 80%;
-    width: 80%;
+    max-width:100%;
+    max-height:100%;
+    display: block;
 }
 
 div.iFrame {
