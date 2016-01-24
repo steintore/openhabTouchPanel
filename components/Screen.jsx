@@ -98,7 +98,7 @@ const Screen = React.createClass({
     },
     render: function () {
         return (
-            <Hammer onSwipe={this.handleSwipe} onTap={this.handleSwipe} vertical={true}>
+            <Hammer onSwipe={this.handleSwipe}  vertical={true}>
                 <div id="screen" className="screen" style={{transform: 'translateX(' + this.props.x + ')'}}>
                     {this.state.items.map(function (t,i) {
                         return (
