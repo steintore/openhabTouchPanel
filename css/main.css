@@ -125,3 +125,9 @@ div.iFrame {
     height: 100%;
     width: 100%;
 }
+
+.meter {
+	stroke:white;
+	stroke-width:20px;
+	stroke-dasharray:5, 3;
+}
