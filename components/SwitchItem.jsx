@@ -10,7 +10,14 @@ const SwitchItem = React.createClass({
         return (<div className="item" onClick={this.handleClick}>
             <Name text={this.props.label} value={this.props.data.item.state} icon={this.props.data.icon}/>
             <div className="switchType">
-                <i className={"fa fa-toggle-" + this.props.data.item.state.toLowerCase() + " fa-5x"}></i>
+                <div className="onoffswitch">
+                    <input type="checkbox" name="onoffswitch" className="onoffswitch-checkbox" id="myonoffswitch" checked={this.props.data.item.state.toLowerCase() == 'on'}>
+                        <label className="onoffswitch-label" for="myonoffswitch">
+                            <span className="onoffswitch-inner"></span>
+                            <span className="onoffswitch-switch"></span>
+                        </label>
+                        </input>
+                </div>
             </div></div>)
     }
 });

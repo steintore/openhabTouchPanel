@@ -11,7 +11,7 @@ var SwitchItemLight = React.createClass({
             <Name text={this.props.label} value={this.props.data.item.state} icon={this.props.data.icon}/>
             <div className="switchType">
                 <svg version="1.1" id="Capa_1" x="0px" y="0px"
-                     width="140px" height="140px" viewBox="0 0 47 47" style={{enableBackground: 'new 0 0 47 47'}}>
+                     width="140px" height="140px" viewBox="0 0 47 47" style={{enableBackground: 'new 0 0 47 47', fill: 'white'}}>
                     <g>
                         <g>
                             <path d="M23.5,11.449c-6.385,0-11.563,4.959-11.563,11.077c0,7.265,5.045,9.117,5.045,13.344c0,1.045,0.799,2.017,1.999,2.731

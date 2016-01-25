@@ -1,5 +1,6 @@
 body {
     font-family: 'HelveticaNeue-UltraLight', 'Helvetica Neue UltraLight', 'Helvetica Neue', 'Open-Light', sans-serif;
+    background-color: black;
 }
 
 html {
@@ -26,7 +27,6 @@ div.page {
 }
 
 .tile {
-    background-color: snow;
     text-align: center;
     margin-left: 15px;
 }
@@ -65,10 +65,10 @@ div.halfWidth {
 }
 
 div.item {
-    background-color: slategray;
+    background-color: #2E3C56;
     width: 95%;
     height: 95%;
-    box-shadow: 10px 10px 5px #888888;
+    box-shadow: 5px 5px 5px #364556;
 }
 
 .icon {
@@ -130,4 +130,50 @@ div.iFrame {
 	stroke:white;
 	stroke-width:20px;
 	stroke-dasharray:5, 3;
+}
+
+.onoffswitch {
+    position: relative; width: 119px;
+    -webkit-user-select:none; -moz-user-select:none; -ms-user-select: none;
+}
+.onoffswitch-checkbox {
+    display: none;
+}
+.onoffswitch-label {
+    display: block; overflow: hidden; cursor: pointer;
+    border: 2px solid #999999; border-radius: 25px;
+}
+.onoffswitch-inner {
+    display: block; width: 200%; margin-left: -100%;
+    transition: margin 0.3s ease-in 0s;
+}
+.onoffswitch-inner:before, .onoffswitch-inner:after {
+    display: block; float: left; width: 50%; height: 43px; padding: 0; line-height: 43px;
+    font-size: 20px; color: white; font-family: Trebuchet, Arial, sans-serif; font-weight: bold;
+    box-sizing: border-box;
+}
+.onoffswitch-inner:before {
+    content: "PÅ";
+    padding-left: 10px;
+    background-color: #364556; color: #FFFFFF;
+}
+.onoffswitch-inner:after {
+    content: "AV";
+    padding-right: 10px;
+    background-color: #EEEEEE; color: #999999;
+    text-align: right;
+}
+.onoffswitch-switch {
+    display: block; width: 18px; margin: 12.5px;
+    background: #FFFFFF;
+    position: absolute; top: 0; bottom: 0;
+    right: 72px;
+    border: 2px solid #999999; border-radius: 25px;
+    transition: all 0.3s ease-in 0s;
+}
+.onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-inner {
+    margin-left: 0;
+}
+.onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-switch {
+    right: 0px;
 }
