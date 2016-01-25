@@ -3,7 +3,7 @@ import Name from './Name.jsx';
 
 const SceneItem = React.createClass({
     findItemValue: function () {
-        var itemValue = null;
+        var itemValue = '?';
         var itemState = this.props.data.item.state;
         this.props.data.mapping.map(function (it) {
             if (it.command === itemState)
