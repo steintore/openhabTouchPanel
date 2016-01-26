@@ -6,6 +6,7 @@ import DimmerItem from "./DimmerItem.jsx";
 import SceneItem from "./SceneItem.jsx";
 import ImageItem from "./ImageItem.jsx";
 import Webview from "./Webview.jsx";
+import VideoItem from "./VideoItem.jsx";
 import TemperatureItem from "./TemperatureItem.jsx";
 
 const Tile = React.createClass({
@@ -18,6 +19,8 @@ const Tile = React.createClass({
             itemComponent = <Webview data={this.props.data}/>;
         } else if (this.props.data.type === 'Image') {
             itemComponent = <ImageItem data={this.props.data} label={itemLabel}/>;
+        } else if (this.props.data.type === 'Video') {
+            itemComponent = <VideoItem data={this.props.data} label={itemLabel}/>;
         } else if (this.props.data.item.type === 'SwitchItem' && this.props.data.icon.indexOf('light') != -1) {
             itemComponent = <SwitchItemLight data={this.props.data} handleSetState={this.props.handleSetState} label={itemLabel}/>
         } else if (this.props.data.item.type === 'SwitchItem') {
