@@ -69,7 +69,7 @@ const Screen = React.createClass({
     },
     handleSwipe: function () {
         var pSize = $('.page').width();
-        console.log(this);
+        //console.log(this, pSize);
         $('.screen').css("transform","translateX("+$(this).index() * pSize+"px)");
         this.transitionToImg(this.props.x + 1,  document.getElementById("screen"));
     },
