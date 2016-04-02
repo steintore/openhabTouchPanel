@@ -7,7 +7,6 @@ var currWidth;
 
 const Screen = React.createClass({
     handleSetItemState: function (itemLink, newItemState) {
-        this.setState({items: this.state.items});
         $.ajax({
             url: itemLink,
             type: 'POST',
@@ -17,7 +16,7 @@ const Screen = React.createClass({
                 const newState = this.state.items.map(function (it) {
                     if (it.widget.length > 1) {
                         it.widget.map(function (t) {
-                            if (t.type != 'Webview' && t.item.link === itemLink) {
+                            if (t.type != 'Webview' && t.item != null && t.item.link === itemLink) {
                                 t.item.state = newItemState;
                             }
                         });
