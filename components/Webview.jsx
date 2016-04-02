@@ -15,7 +15,7 @@ const Webview = React.createClass({
         this.iframe = iframe;
     },
     onIframeLoad: function () {
-        setTimeout(this.reload, 60000);
+        setTimeout(this.reload, 3600000);
     },
     reload: function () {
         this.iframe.src = this.props.data.url;
