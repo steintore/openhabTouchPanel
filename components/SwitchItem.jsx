@@ -14,8 +14,8 @@ const SwitchItem = React.createClass({
             <Name text={this.props.label} value={this.props.data.item.state} icon={this.props.data.icon}/>
             <div className="switchType">
                 <div className="onoffswitch">
-                    <input type="checkbox" name="onoffswitch" className="onoffswitch-checkbox" id="myonoffswitch" checked={this.props.data.item.state == 'ON'} onChange={this.handleChange}/>
-                        <label className="onoffswitch-label" htmlFor="myonoffswitch">
+                    <input type="checkbox" name="onoffswitch" className="onoffswitch-checkbox" id={this.props.data.item.name} checked={this.props.data.item.state == 'ON'} onChange={this.handleChange}/>
+                        <label className="onoffswitch-label" htmlFor={this.props.data.item.name}>
                             <span className="onoffswitch-inner"/>
                             <span className="onoffswitch-switch"/>
                         </label>
