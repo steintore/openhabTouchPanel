@@ -30,7 +30,7 @@ const Tile = React.createClass({
         } else if (this.props.data.item.type === 'DimmerItem' || this.props.data.type === 'Slider') {
             itemComponent = <DimmerItem data={this.props.data} label={itemLabel}  handleSetState={this.props.handleSetState} />;
         } else if (this.props.data.mapping != null) {
-            itemComponent = <SceneItem data={this.props.data} label={itemLabel}/>;
+            itemComponent = <SceneItem data={this.props.data} label={itemLabel} handleSetState={this.props.handleSetState}/>;
         }
         var tileClass = 'tile ' + this.props.tileClass + ' ' + this.props.data.type;
         return (<div className={tileClass}>
