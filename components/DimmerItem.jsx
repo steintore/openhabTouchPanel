@@ -9,7 +9,7 @@ const DimmerItem = React.createClass({
     	const y = evt.pointers[0].offsetY - 100
 		const deg = this.calculateDegreesFromZero(x,y)
 		const distance = this.calculateDistanceToCenter(x,y)
-    	console.log("d: "+ distance + " deg: " + deg + " x:" + x + " y:" + y)
+    	//console.log("d: "+ distance + " deg: " + deg + " x:" + x + " y:" + y)
     	
     	var newState = null
     	if(distance > 55 && distance < 120) { //click on dial
@@ -22,7 +22,7 @@ const DimmerItem = React.createClass({
     	}
     	
        if(newState != null) {
-       		console.log("Setting new state:" + newState)
+       		//console.log("Setting new state:" + newState)
        		this.props.handleSetState(this.props.data.item.link, newState);
        }
     },
@@ -60,8 +60,8 @@ const DimmerItem = React.createClass({
     render: function () {
     	
     	const value = isNaN( this.props.data.item.state) ? 0 : Number( this.props.data.item.state )
-    	const t = "" + value
-    	console.log("value:" + value + ":" + this.props.data.item.state, this.props.data.item.name )
+    	const t = "" + value;
+    	//console.log("value:" + value + ":" + this.props.data.item.state, this.props.data.item.name )
     	//
         return (<div className="item" >
           	<Name text={this.props.label} value={this.props.data.item.state} icon={this.props.data.icon}/>  
