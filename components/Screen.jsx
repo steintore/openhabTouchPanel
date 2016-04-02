@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactDOM from "react-dom";
 import Page from './Page.jsx';
 var Hammer = require('react-hammerjs');
 
@@ -8,6 +7,7 @@ var currWidth;
 
 const Screen = React.createClass({
     handleSetItemState: function (itemLink, newItemState) {
+        this.setState({items: this.state.items});
         $.ajax({
             url: itemLink,
             type: 'POST',
