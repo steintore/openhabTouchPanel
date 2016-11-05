@@ -96,6 +96,11 @@ const Screen = React.createClass({
         this.setTransform(targetEl, "translateX(-" + (currWidth * idx) + "px)");
     },
     render: function () {
+        if( (this.state.items instanceof Array) == false){
+            var arr = [];
+            arr.push(this.state.items);
+             this.state.items = arr;
+        }
         return (
             <Hammer onSwipe={this.handleSwipe}  vertical={true}>
                 <div id="screen" className="screen" style={{transform: 'translateX(' + this.props.x + ')'}}>

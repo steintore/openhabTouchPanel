@@ -3,7 +3,12 @@ import Tile from './Tile.jsx';
 
 const Page = React.createClass({
     render: function () {
-        var numberOfTiles = this.props.data.length ? this.props.data.length : 1;
+        var numberOfTiles;
+        if(typeof this.props.data !== 'undefined'){
+            numberOfTiles = this.props.data.length ? this.props.data.length : 1;
+        }else{
+            numberOfTiles = 0;
+        }
         var even = (numberOfTiles % 2 != 1);
 
         var tiles = [];
@@ -27,8 +32,10 @@ const Page = React.createClass({
                 tiles.push(<Tile key={value.widgetId} tileClass={tileClass} data={value} handleSetState={handleSetItemState}/>)
 
             });
-        } else
+        } else if(numberOfTiles == 1) {
+        
             tiles.push(<Tile key={this.props.data.widgetId} tileClass={'tileFullScreen'} data={this.props.data} handleSetState={this.props.handleSetItemState}/>)
+        }
 
         return (
             React.DOM.div({style: {left: (100 * this.props.idx).toString() + "%"}, className: 'page'}, tiles)
