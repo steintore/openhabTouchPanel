@@ -21,14 +21,16 @@ const Tile = React.createClass({
             itemComponent = <ImageItem data={this.props.data} label={itemLabel}/>;
         } else if (this.props.data.type === 'Video') {
             itemComponent = <VideoItem data={this.props.data} label={itemLabel}/>;
-        } else if (this.props.data.item.type === 'SwitchItem' && this.props.data.icon.indexOf('light') != -1) {
-            itemComponent = <SwitchItemLight data={this.props.data} handleSetState={this.props.handleSetState} label={itemLabel}/>
-        } else if (this.props.data.item.type === 'SwitchItem') {
-            itemComponent = <SwitchItem data={this.props.data} handleSetState={this.props.handleSetState} label={itemLabel}/>
-        } else if (this.props.data.icon === 'temperature') {
+        } else if (typeof this.props.data.item !== 'undefined'){
+            if (this.props.data.item.type === 'SwitchItem' && this.props.data.icon.indexOf('light') != -1) {
+                itemComponent = <SwitchItemLight data={this.props.data} handleSetState={this.props.handleSetState} label={itemLabel}/>
+            } else if (this.props.data.item.type === 'SwitchItem') {
+                itemComponent = <SwitchItem data={this.props.data} handleSetState={this.props.handleSetState} label={itemLabel}/>
+            } else if (this.props.data.item.type === 'DimmerItem' || this.props.data.type === 'Slider') {
+                itemComponent = <DimmerItem data={this.props.data} label={itemLabel}  handleSetState={this.props.handleSetState} />;
+            } 
+        }else if (this.props.data.icon === 'temperature') {
             itemComponent = <TemperatureItem data={this.props.data} label={itemLabel}/>;
-        } else if (this.props.data.item.type === 'DimmerItem' || this.props.data.type === 'Slider') {
-            itemComponent = <DimmerItem data={this.props.data} label={itemLabel}  handleSetState={this.props.handleSetState} />;
         } else if (this.props.data.mapping != null) {
             itemComponent = <SceneItem data={this.props.data} label={itemLabel} handleSetState={this.props.handleSetState}/>;
         }
