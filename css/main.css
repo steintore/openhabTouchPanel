@@ -12,7 +12,7 @@ html {
     height: 100%;
     overflow: hidden;
     margin: 0 auto;
-    top: 10px;;
+    top: 10px;
     right:0;
     bottom:0;
     left:0;
@@ -179,12 +179,12 @@ div.sceneSubItem {
     box-sizing: border-box;
 }
 .onoffswitch-inner:before {
-    content: "PÅ";
+    content: "ON";
     padding-left: 10px;
     background-color: #364556; color: #FFFFFF;
 }
 .onoffswitch-inner:after {
-    content: "AV";
+    content: "OFF";
     padding-right: 10px;
     background-color: #EEEEEE; color: #999999;
     text-align: right;
